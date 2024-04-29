@@ -1,0 +1,41 @@
+<div class="column gap-1">
+<!-- add prod -->
+<button
+type="button"
+pButton
+icon="pi pi-plus"
+(click)="toggleAddPopup()"
+label="Add Product"
+class="add-product-btn"
+></button>
+
+
+  <div class="row wrap gap-1 space-between">
+    @for ( product of products; track product) {
+    <app-product [product]="product" (edit)="toggleEditPopup($event)" (delete)="toggleDeletePopup($event)"></app-product>
+    }
+  </div>
+  <!--paginator  -->
+  <p-paginator
+   (onPageChange)="onPageChange($event)"
+    [rows]="rows" 
+    [rowsPerPageOptions]="[5,10,20]"
+  [totalRecords]="totalRecords"
+  ></p-paginator>
+</div>
+
+<!-- Edit Product -->
+<app-edit-popup
+  [product]="selectProduct"
+  [(display)]="displayEditPopup"
+  (confirm)="onConfirmEdite($event)"
+  header="Esit Price"
+></app-edit-popup>
+
+
+<!-- Add Product -->
+<app-edit-popup
+[(display)]="displayAddPopup"
+(confirm)="onConfirmAdd($event)"
+header="Add Product"
+></app-edit-popup>
